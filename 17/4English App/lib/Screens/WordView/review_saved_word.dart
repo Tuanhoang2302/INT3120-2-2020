@@ -27,6 +27,108 @@ class _ReviewSavedWordState extends State<ReviewSavedWord> {
     _wordController.text = "${widget.word}";
   }
 
+  _textForm() {
+    return Container(
+      height: 40,
+      margin: EdgeInsets.only(bottom: 20, top: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.grey[300]),
+      ),
+      child: TextFormField(
+        style: TextStyle(
+          fontSize: 18,
+        ),
+        controller: _wordController,
+        onChanged: (String text) {
+
+        },
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left: 16, bottom: 10),
+          //hintText: "Search for a word",
+          border: InputBorder.none,
+        ),
+
+      ),
+    );
+  }
+
+  _dropDownButton(Store store) {
+    return Container(
+      margin: EdgeInsets.only(top: 12, bottom: 25),
+      height: 45,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.grey[300],
+          border: Border.all()),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<dynamic>(
+            isExpanded: true,
+            value: folderValue,
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: Icon(Icons.arrow_downward),
+            ),
+            iconSize: 20,
+            elevation: 16,
+            style: TextStyle(color: Colors.deepPurple),
+
+            onChanged: (dynamic newValue) {
+              setState(() {
+                folderValue = newValue;
+              });
+            },
+            items: store.state.listfolder
+                .map<DropdownMenuItem<dynamic>>((dynamic value) {
+              return DropdownMenuItem<dynamic>(
+                value: value,
+                child: Row(
+                  children: [
+                    Icon(Icons.folder, color: Colors.orangeAccent, ),
+                    Container(
+                      margin: EdgeInsets.only(left: 12),
+                      child: Text(
+                        value,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  _areaTextField() {
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(
+              color: Colors.grey[300]
+          )
+      ),
+      margin: EdgeInsets.only(top: 12),
+      child: TextFormField(
+        controller: _noteController,
+        style: TextStyle(
+            fontSize: 18
+        ),
+        decoration: InputDecoration.collapsed(),
+        maxLines: 6,
+      ),
+    );
+  }
+
   Widget build(BuildContext context) {
     //print(widget.word);
     return StoreConnector<AppState, Store>(
@@ -87,30 +189,8 @@ class _ReviewSavedWordState extends State<ReviewSavedWord> {
                           fontSize: 18
                       ),
                     ),
-                    Container(
-                      height: 40,
-                      margin: EdgeInsets.only(bottom: 20, top: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(color: Colors.grey[300]),
-                      ),
-                      child: TextFormField(
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                        controller: _wordController,
-                        onChanged: (String text) {
 
-                        },
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 16, bottom: 10),
-                          //hintText: "Search for a word",
-                          border: InputBorder.none,
-                        ),
-
-                      ),
-                    ),
+                    _textForm(),
 
                     Text(
                       "Folder",
@@ -119,81 +199,15 @@ class _ReviewSavedWordState extends State<ReviewSavedWord> {
                           fontSize: 18
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(top: 12, bottom: 25),
-                      height: 45,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.grey[300],
-                          border: Border.all()),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<dynamic>(
-                            isExpanded: true,
-                            value: folderValue,
-                            icon: Padding(
-                              padding: const EdgeInsets.only(right: 12),
-                              child: Icon(Icons.arrow_downward),
-                            ),
-                            iconSize: 20,
-                            elevation: 16,
-                            style: TextStyle(color: Colors.deepPurple),
 
-                            onChanged: (dynamic newValue) {
-                              setState(() {
-                                folderValue = newValue;
-                              });
-                            },
-                            items: store.state.listfolder
-                                .map<DropdownMenuItem<dynamic>>((dynamic value) {
-                              return DropdownMenuItem<dynamic>(
-                                value: value,
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.folder, color: Colors.orangeAccent, ),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 12),
-                                      child: Text(
-                                        value,
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ),
+                    _dropDownButton(store),
 
                     Text("Note", style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18
                     ),),
 
-                    Container(
-                      padding: EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(
-                            color: Colors.grey[300]
-                          )
-                      ),
-                      margin: EdgeInsets.only(top: 12),
-                      child: TextFormField(
-                        controller: _noteController,
-                        style: TextStyle(
-                          fontSize: 18
-                        ),
-                        decoration: InputDecoration.collapsed(),
-                        maxLines: 6,
-                      ),
-                    )
+                    _areaTextField()
                   ],
                 ),
               ),

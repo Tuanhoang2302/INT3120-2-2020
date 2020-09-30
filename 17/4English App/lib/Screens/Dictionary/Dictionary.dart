@@ -26,17 +26,17 @@ class _DictionaryState extends State<Dictionary> {
     if(_controller.text == null || _controller.text.length == 0) {
       _streamController.add(null);
     } else {
-      //_streamController.add("waiting");
-      Response response = await get(
-        _url + _controller.text.trim() + "*&max=4",
-      );
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        await _streamController.add(json.decode(response.body));
-      } else {
-        // If that response was not OK, throw an error.
-        throw Exception('Failed to load json data');
-      }
+        //_streamController.add("waiting");
+        Response response = await get(
+            _url + _controller.text.trim() + "*&max=4",
+        );
+        print(response.statusCode);
+        if (response.statusCode == 200) {
+          await _streamController.add(json.decode(response.body));
+        } else {
+          // If that response was not OK, throw an error.
+          throw Exception('Failed to load json data');
+        }
 
     }
   }
@@ -127,7 +127,7 @@ class _DictionaryState extends State<Dictionary> {
               ],
             ),
           ),
-        ),
+          ),
         body: StreamBuilder(
           stream: _stream,
           builder: (BuildContext cxt, AsyncSnapshot snapshot) {
