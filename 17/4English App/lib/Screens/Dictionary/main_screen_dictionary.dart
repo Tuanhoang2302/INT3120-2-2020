@@ -23,8 +23,16 @@ class MainScreenDictionary extends StatelessWidget {
                   Navigator.pushNamed(context, '/saveword');
                 },
             ),
-            Cards(icons: Icons.replay,text: " Recent words",),
+            Cards(icons: Icons.replay,text: "Recent words",),
             Cards(icons: Icons.mic, text: "Pronunciation",),
+            SizedBox(height: 24,),
+            Text(
+              "Settings",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            Cards(icons: Icons.open_in_new,text: "Open other dictionaries",),
+            Cards(icons: Icons.settings, text: "Settings",),
+            Cards(icons: Icons.filter, text: "Float dict in App",),
           ],
         ),
       ),
