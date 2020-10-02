@@ -28,6 +28,10 @@ class ShortcutList extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/dictionary');
                 },
+                child: Text("Dictionary", style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17
+                ),),
                 color: Colors.red,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),

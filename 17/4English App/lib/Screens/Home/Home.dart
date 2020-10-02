@@ -3,6 +3,7 @@ import 'package:english_app/Redux/Actions/actions.dart';
 import 'package:english_app/Screens/Home/Body/shortcut_list.dart';
 import 'package:english_app/Screens/Listening/Listening.dart';
 import 'package:english_app/Screens/Reading/Reading.dart';
+import 'package:english_app/Screens/Vocabulary/Vocabulary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_redux_dev_tools/flutter_redux_dev_tools.dart';
@@ -20,6 +21,7 @@ class _HomeState extends State<Home> {
     ShortcutList(),
     Listening(),
     Reading(),
+    Vocabulary()
   ];
 
   @override

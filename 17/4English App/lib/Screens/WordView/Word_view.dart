@@ -51,7 +51,7 @@ class _WordViewState extends State<WordView> {
               ),
             );
           }
-          print(snapshot.data);
+          //print(snapshot.data);
           return Scaffold(
             appBar: AppBar(
               iconTheme: IconThemeData(

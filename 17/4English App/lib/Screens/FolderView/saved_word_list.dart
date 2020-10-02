@@ -19,6 +19,79 @@ class _SavedWordListState extends State<SavedWordList> {
     });
   }
 
+  _searchBar() {
+    return Container(
+      height: 50,
+      margin: EdgeInsets.only(bottom: 8, top:16),
+      decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            width: 3,
+            color: Colors.blue,
+          )
+      ),
+      child: TextFormField(
+        textInputAction: TextInputAction.done,
+        onFieldSubmitted: (value) {
+
+        },
+        style: TextStyle(
+          fontSize: 18,
+        ),
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(bottom: 4, left: 14),
+          hintText: "Search",
+          border: InputBorder.none,
+        ),
+
+      ),
+    );
+  }
+
+  _wordList(var data) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: <Widget>[
+                    Text(data[index].data()["word"], style: TextStyle(
+                        fontSize: 17
+                    ),),
+                    Spacer(),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        createAlertDialog(context, data[index].id.toString());
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => ReviewSavedWord(word: data[index].data()["word"], id: data[index].id,)
+                        ));
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -47,78 +120,13 @@ class _SavedWordListState extends State<SavedWordList> {
               return Center(child: CircularProgressIndicator(),);
             }
             var data = snapshot.data.docs;
-            //print(data[0].id);
+            //print(data.length);
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
-                  Container(
-                    height: 50,
-                    margin: EdgeInsets.only(bottom: 8, top:16),
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          width: 3,
-                          color: Colors.blue,
-                        )
-                    ),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (value) {
-
-                      },
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(bottom: 4, left: 14),
-                        hintText: "Search",
-                        border: InputBorder.none,
-                      ),
-
-                    ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: snapshot.data.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 8),
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Text(data[index].data()["word"], style: TextStyle(
-                                    fontSize: 17
-                                  ),),
-                                  Spacer(),
-                                  IconButton(
-                                    icon: Icon(Icons.delete),
-                                    onPressed: () {
-                                      createAlertDialog(context, data[index].id.toString());
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: Icon(Icons.edit),
-                                    onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) => ReviewSavedWord(word: data[index].data()["word"], id: data[index].id,)
-                                      ));
-                                    },
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  _searchBar(),
+                  _wordList(data)
                 ],
               ),
             );
