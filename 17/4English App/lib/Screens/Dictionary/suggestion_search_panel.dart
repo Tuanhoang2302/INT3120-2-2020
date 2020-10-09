@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:english_app/Screens/WordView/Word_view.dart';
+import 'package:english_app/Services/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +34,7 @@ class SuggestionPanel extends StatelessWidget {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        
+                        DatabaseService("recent_words").addNewRecentWord('${data[index]["word"]}');
                         Navigator.pushNamed(
                           context,
                           '/wordview',

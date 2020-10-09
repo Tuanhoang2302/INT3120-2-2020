@@ -1,3 +1,4 @@
+import 'package:english_app/Screens/Dictionary/RecentWords/Recent_word.dart';
 import 'package:english_app/Screens/Dictionary/cards.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +24,24 @@ class MainScreenDictionary extends StatelessWidget {
                   Navigator.pushNamed(context, '/saveword');
                 },
             ),
-            Cards(icons: Icons.replay,text: " Recent words",),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => RecentWord()
+                ));
+              },
+              child: Cards(
+                icons: Icons.replay,text: "Recent words",),
+            ),
             Cards(icons: Icons.mic, text: "Pronunciation",),
+            SizedBox(height: 24,),
+            Text(
+              "Settings",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            Cards(icons: Icons.open_in_new,text: "Open other dictionaries",),
+            Cards(icons: Icons.settings, text: "Settings",),
+            Cards(icons: Icons.filter, text: "Float dict in App",),
           ],
         ),
       ),

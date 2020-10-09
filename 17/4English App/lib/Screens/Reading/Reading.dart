@@ -203,7 +203,6 @@ class _ReadingState extends State<Reading> {
         stream: category.snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.data == null) {
-            print("fsd");
             return Center(
               child: CircularProgressIndicator(),
             );

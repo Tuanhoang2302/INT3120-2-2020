@@ -86,6 +86,7 @@ class _DictionaryState extends State<Dictionary> {
                                 '/wordview',
                                 arguments: '${_controller.text}'
                             );
+                            _controller.clear();
                           },
                         ),
 
@@ -99,6 +100,7 @@ class _DictionaryState extends State<Dictionary> {
                                   '/wordview',
                                   arguments: '$value'
                               );
+                              _controller.clear();
                             },
                             style: TextStyle(
                               fontSize: 18,
@@ -138,7 +140,7 @@ class _DictionaryState extends State<Dictionary> {
             return Stack(
               children: [
                 MainScreenDictionary(),
-                SuggestionPanel(data: snapshot.data,),
+                SuggestionPanel(data: snapshot.data, ),
                 //MainScreenDictionary(),
               ],
             );

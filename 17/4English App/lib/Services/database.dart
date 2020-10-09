@@ -47,4 +47,36 @@ class DatabaseService {
         .then((value) => print("All User Deleted"))
         .catchError((error) => print("Failed to delete user: $error"));
   }
+
+  Future<void> updateDownloadedStatus_Book(String id, bool downloadStatus) async {
+    return await Collection
+        .doc(id)
+        .update({"isDownloaded": downloadStatus})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  Future<void> addNewRecentWord(String word) async {
+    return await Collection.add({
+      'word': word
+    }).then((value) => print("recent_add")).catchError((Error) => print(Error));
+  }
+
+  Future<void> deleteRecentWord(String id) async {
+    return await Collection.doc(id)
+        .delete()
+        .then((value) => print("recent Deleted"))
+        .catchError((error) => print("Failed to delete recent: $error"));
+  }
+
+  Future<void> deleteAllRecentWord() async {
+    print("gsaf");
+    return await Collection
+      .get()
+      .then((value) {
+        value.docs.forEach((element) {
+          element.reference.delete();
+        });
+    });
+  }
 }

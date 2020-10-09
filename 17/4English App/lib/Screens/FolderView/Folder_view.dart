@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:english_app/Constant/delete_alert_dialog.dart';
+import 'package:english_app/Constant/delete_item_dialog.dart';
 import 'package:english_app/Model/model.dart';
 import 'package:english_app/Screens/Dictionary/cards.dart';
 import 'package:english_app/Screens/FolderView/saved_word_list.dart';

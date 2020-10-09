@@ -1,4 +1,5 @@
 import 'package:english_app/Screens/Home/Body/icon_shortcut.dart';
+import 'package:english_app/Screens/Song%20ng%E1%BB%AF/Song_ngu.dart';
 import 'package:flutter/material.dart';
 
 class ShortcutList extends StatelessWidget {
@@ -44,7 +45,15 @@ class ShortcutList extends StatelessWidget {
               width: 170,
               height: 50,
               child: FlatButton(
-                onPressed: () {},
+                child: Text("Song ngữ", style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17
+                ),),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => SongNgu()
+                  ));
+                },
                 color: Colors.orange[400],
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),

@@ -21,7 +21,7 @@ class Cards extends StatelessWidget {
               child: Text(text,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 20,
                 ),
               ),
             ),
