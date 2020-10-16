@@ -43,12 +43,24 @@ class _VideoScreenState extends State<VideoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: YoutubePlayer(
-        controller: _controller,
-        showVideoProgressIndicator: true,
-        onReady: () {
-          print('Player is ready.');
-        },
+      body: YoutubePlayerBuilder(
+        player: YoutubePlayer(
+          controller: _controller,
+          showVideoProgressIndicator: true,
+
+          onReady: () {
+            print('Player is ready.');
+          },
+        ),
+        builder: (context, player) {
+          return Column(
+            children: [
+              // some widgets
+              player,
+              //some other widgets
+            ],
+          );
+        }
       ),
     );
   }

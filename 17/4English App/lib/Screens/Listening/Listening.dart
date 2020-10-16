@@ -4,6 +4,7 @@ import 'package:english_app/Model/video.dart';
 import 'package:english_app/Screens/Listening/video_screens.dart';
 import 'package:english_app/Screens/Reading/categoryTile.dart';
 import 'package:english_app/Services/api_youtube_service.dart';
+import 'package:english_app/globles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -71,8 +72,8 @@ class _ListeningState extends State<Listening> {
             }
             //print(articles[0].title);
             return Container(
-              height: 70,
-              margin: EdgeInsets.only(top: 8),
+              height: 70* ratio,
+              margin: EdgeInsets.only(top: 8, bottom: 8),
               child: ListView.builder(
                   itemCount: data.length,
                   scrollDirection: Axis.horizontal,
@@ -109,56 +110,59 @@ class _ListeningState extends State<Listening> {
 
   _buildVideo(Video video) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => VideoScreen(id: video.id),
-        ),
-      ),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-        padding: EdgeInsets.all(10.0),
-        height: 140.0,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0, 1),
-              blurRadius: 6.0,
-            ),
-          ],
-        ),
-        child: Row(
-          children: <Widget>[
-            Image(
-              width: 140.0,
-              image: NetworkImage(video.thumbnailUrl),
-            ),
-            SizedBox(width: 10.0),
-            Column(
-              children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  width: 200,
-                  margin: EdgeInsets.only(top: 8),
-                  child: Text(
-                    video.title,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) => VideoScreen(id: video.id,)
+        ));
+      },
+      child: Padding(
+        padding: EdgeInsets.only(left: 16, right: 16),
+        child: Column(
+          children: [
+            Container(
+              height: 100 * ratio,
+              child: Container(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Image(
+                        width: 140.0,
+                        image: NetworkImage(video.thumbnailUrl, ),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
+
+                    SizedBox(width: 12,),
+                    Expanded(
+                      flex: 4,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            video.title,
+                            maxLines: 2,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.0 * ratio,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+
+                          Text(video.publishedAt, style: TextStyle(
+                            fontSize: 14* ratio
+                          ),)
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                Spacer(),
-                Container(
-                  width: 200,
-                  margin: EdgeInsets.only(bottom: 8),
-                  child: Text(video.publishedAt),
-                )
-              ],
+              ),
             ),
 
+            Container(color: Colors.grey[200], height: 10,),
           ],
         ),
       ),
@@ -179,7 +183,7 @@ class _ListeningState extends State<Listening> {
   @override
   void initState() {
     super.initState();
-    _initChannel('UC6Dy0rQ6zDnQuHQ1EeErGUA');
+    _initChannel(_channelId);
   }
 
   Widget build(BuildContext context) {

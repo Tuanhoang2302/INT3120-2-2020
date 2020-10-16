@@ -45,6 +45,12 @@ dependencies:
   dio: ^3.0.10
   advance_pdf_viewer: ^1.2.0
   rxdart: ^0.24.1
+  device_preview: ^0.4.8
+  responsive_builder: ^0.3.0
+  auto_size_text: ^2.1.0
+  subtitle_wrapper_package: ^1.0.3
+  google_sign_in: ^4.5.4
+  highlight_text: ^0.7.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -66,6 +72,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/Untitled.png
+    - assets/images/fb.jpg
+    - assets/images/google-logo.png
+    - assets/images/Facebook_Logo.png
+    - assets/images/email-logo.png
+    - assets/images/apple-logo.png
   #  - images/Untitled.png
   #   - images/a_dot_ham.jpeg
 

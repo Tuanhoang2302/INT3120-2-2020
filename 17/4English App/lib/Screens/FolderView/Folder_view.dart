@@ -5,6 +5,7 @@ import 'package:english_app/Model/model.dart';
 import 'package:english_app/Screens/Dictionary/cards.dart';
 import 'package:english_app/Screens/FolderView/saved_word_list.dart';
 import 'package:english_app/Services/database.dart';
+import 'package:english_app/globles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -111,24 +112,27 @@ class _FolderViewState extends State<FolderView> {
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
-        title: Text(
-          "Vocabulary folder",
-          style: TextStyle(fontSize: 20, color: Colors.black),
+        title: Container(
+          //margin: EdgeInsets.only(bottom: 12),
+          child: Text(
+            "Folder",
+            style: TextStyle(fontSize: 20 * ratio, color: Colors.black),
+          ),
         ),
         actions: <Widget>[
-          Container(
-            margin: EdgeInsets.all(8),
-            child: FlatButton(
-              onPressed: () {
-                createAlertDialog(context);
-              },
+          FlatButton(
+            onPressed: () {
+              createAlertDialog(context);
+            },
+            child: FittedBox(
+              fit: BoxFit.contain,
               child: Column(
                 children: <Widget>[
-                  Icon(Icons.create_new_folder),
+                  Icon(Icons.create_new_folder, size: 24 * ratio,),
                   Text(
                     "New Folder",
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 12* ratio,
                     ),
                   ),
                 ],
@@ -145,7 +149,7 @@ class _FolderViewState extends State<FolderView> {
             converter: (store) => store,
             builder: (context, store) {
               return ListView.builder(
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(16),
                   itemCount: store.state.listfolder.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
@@ -156,7 +160,7 @@ class _FolderViewState extends State<FolderView> {
                       },
                       child: Card(
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(16.0 * ratioHeight),
                           child: Row(
                             children: <Widget>[
                               Icon(Icons.folder, color: Colors.orangeAccent,),
@@ -168,7 +172,7 @@ class _FolderViewState extends State<FolderView> {
                                     "${store.state.listfolder[index]}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20
+                                        fontSize: 20 * ratio
                                     ),
                                   ),
                                 ),
@@ -177,22 +181,28 @@ class _FolderViewState extends State<FolderView> {
                               if(index != 0)
                               Row(
                                 children: [
-                                  IconButton(
-                                    icon: Icon(Icons.create),
-                                    color: Colors.brown,
-                                    onPressed: () {
+                                  GestureDetector(
+                                    onTap: () {
                                       createAlertModifyName(context, index);
                                     },
+                                    child: Icon(
+                                      Icons.create,
+                                      size: iconSize,
+                                      color: Colors.brown,
+                                    ),
                                   ),
-                                  IconButton(
-                                    icon: Icon(Icons.delete),
-                                    color: Colors.red,
-                                    onPressed: () {
+                                  SizedBox(width: 16,),
+                                  GestureDetector(
+                                    onTap: () {
                                       deleteAlertDialog(context, store.state.listfolder[index], store, index);
-                                      //DatabaseService("save_words").deleteSavedWord_WhenDeleteFolder("${store.state.listfolder[index]}");
-                                      //store.dispatch(RemoveFolder(index: index));
                                     },
+                                    child: Icon(
+                                      Icons.delete,
+                                      size: iconSize,
+                                      color: Colors.red,
+                                    ),
                                   ),
+
                                 ],
                               ),
                             ],

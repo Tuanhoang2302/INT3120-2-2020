@@ -99,13 +99,13 @@ class _WordViewState extends State<WordView> {
                 color: Colors.black, //change your color here
               ),
               backgroundColor: Colors.white,
-              title: Text(word,
-                style: TextStyle(color: Colors.black),),
+              /*title: Text(word,
+                style: TextStyle(color: Colors.black),),*/
               actions: <Widget>[
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 30),
+                      padding: const EdgeInsets.only(right: 20),
                       child: IconButton(
                         icon: Icon(Icons.search),
                         onPressed: () {},

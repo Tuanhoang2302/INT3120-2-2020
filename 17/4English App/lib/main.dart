@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:device_preview/device_preview.dart';
 import 'package:english_app/Model/model.dart';
 import 'package:english_app/Redux/Reducers/reducers.dart';
 import 'package:english_app/Screens/Dictionary/Dictionary.dart';
@@ -11,9 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:redux/redux.dart';
-import 'package:redux_dev_tools/redux_dev_tools.dart';
 import 'package:redux_persist/redux_persist.dart';
 import 'package:redux_persist_flutter/redux_persist_flutter.dart';
+import 'package:flutter/foundation.dart';
+import 'package:english_app/globles.dart' as globals;
+import 'package:responsive_builder/responsive_builder.dart';
 
 Future<File> get _localFile async {
   final directory = await getApplicationDocumentsDirectory();
@@ -56,30 +59,40 @@ void main()async {
       middleware: [persistor.createMiddleware()]
   );
 
-  runApp(MyApp(
-    store: store,
-    hello: "Hello",
-  ));
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(store: store,),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   final Store<AppState> store;
   String hello;
   MyApp({Key key, this.store, this.hello}) : super(key: key);
-
+  var screenSize;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context){
-    /*final ezstore = new Store<AppState>(
-      reducer,
-      initialState: AppState(listfolder: ["Default"]),
-      //middleware: [persistor.createMiddleware()]
-    );*/
+    screenSize = MediaQuery.of(context).size;
+    globals.screenSize = screenSize;
+    globals.ratio = screenSize.width / 375;
+    double paddingValue = getValueForScreenType<double>(
+      context: context,
+      mobile: 16,
+      tablet: 30,
+    );
+    globals.padding = paddingValue;
+    globals.iconSize = 24 * globals.ratio;
+    globals.ratioHeight = screenSize.height / 667;
+
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
+        //locale: DevicePreview.of(context).locale,
+        builder: DevicePreview.appBuilder,
         //home: Home(),
-        //home: Dictionary(),
         onGenerateRoute: (setting) {
           if(setting.name == "/wordview"){
             String s = setting.arguments;

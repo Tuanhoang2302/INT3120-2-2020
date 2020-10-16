@@ -26,15 +26,15 @@ class Video {
     String res = '';
     year = (m ~/ 365);
     if(year == 1) {
-      res += "$year year ";
+      res += "$year y ";
     }else if(year > 1){
-      res += "$year years ";
+      res += "$year ys ";
     }
     month = (m - 365*year) ~/ 30;
     if(month == 1){
-      res+= "$month month ";
+      res+= "$month mth ";
     }else if(month > 1) {
-      res += "$month months ";
+      res += "$month mths ";
     }
     day = m - 365 * year - 30* month;
     if(day == 1) {
@@ -46,7 +46,7 @@ class Video {
 
     return Video(
       id: snippet['resourceId']['videoId'],
-      title: snippet['title'].length <= 70 ? snippet['title'] : snippet['title'].substring(0, 69) + "...",
+      title: snippet['title'],
       thumbnailUrl: snippet['thumbnails']['high']['url'],
       channelTitle: snippet['channelTitle'],
       publishedAt: res

@@ -15,8 +15,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "368383369154-9qkd80975nm3oge32qdjn9vphm5hfjcf.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "368383369154-ldnhqppaivdodm12scvis3muqapip9vp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.english_app",
+            "certificate_hash": "84105fbd58685df58c515f6810b16959e929c789"
+          }
         }
       ],
       "api_key": [
@@ -26,12 +30,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "368383369154-9qkd80975nm3oge32qdjn9vphm5hfjcf.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

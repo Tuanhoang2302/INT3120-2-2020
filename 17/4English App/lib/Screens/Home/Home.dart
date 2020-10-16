@@ -1,13 +1,13 @@
 import 'package:english_app/Model/model.dart';
 import 'package:english_app/Redux/Actions/actions.dart';
+import 'package:english_app/Screens/Account/Account.dart';
 import 'package:english_app/Screens/Home/Body/shortcut_list.dart';
 import 'package:english_app/Screens/Listening/Listening.dart';
 import 'package:english_app/Screens/Reading/Reading.dart';
 import 'package:english_app/Screens/Vocabulary/Vocabulary.dart';
+import 'package:english_app/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_redux_dev_tools/flutter_redux_dev_tools.dart';
-import 'package:redux_dev_tools/redux_dev_tools.dart';
+import 'package:english_app/globles.dart' as globals;
 
 class Home extends StatefulWidget {
 
@@ -21,11 +21,22 @@ class _HomeState extends State<Home> {
     ShortcutList(),
     Listening(),
     Reading(),
-    Vocabulary()
+    Vocabulary(),
+    Account()
   ];
+
+  buildBottomNavigationItem(IconData icons, double fontSize, String text) {
+    return BottomNavigationBarItem(
+        icon: Icon(icons, size: globals.iconSize - 3,),
+        title: Text(text, style: TextStyle(
+            fontSize: fontSize
+        ),)
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    //var screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -35,26 +46,21 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.white,
           title: Text(
             "4English",
-            style: TextStyle(color: Colors.blue[700], fontSize: 25),
+            style: TextStyle(color: Colors.blue[700], fontSize: 25 * globals.ratio),
           ),
           actions: <Widget>[
-            Container(
-              child: IconButton(
-                icon: Icon(Icons.file_download),
-                color: Colors.black,
-                onPressed: () {
-                  //print("hello");
-                },
-              ),
+            Icon(
+              Icons.file_download,
+              size: 27 * globals.ratio,
+              color: Colors.grey,
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: IconButton(
-                icon: Icon(Icons.favorite),
-                color: Colors.black,
-                onPressed: () {
-                  //print("hello");
-                },
+            SizedBox(width: 16,),
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Icon(
+                Icons.favorite,
+                size: 27 * globals.ratio,
+                color: Colors.grey,
               ),
             ),
 
@@ -71,22 +77,11 @@ class _HomeState extends State<Home> {
           currentIndex: _currentIndex,
           selectedItemColor: Colors.blue,
           items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text("Home")
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.headset),
-              title: Text("Listening")
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.import_contacts),
-              title: Text("Reading")
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.book),
-                title: Text("Vocabulary")
-            ),
+            buildBottomNavigationItem(Icons.home, 15 * globals.ratio, "Home"),
+            buildBottomNavigationItem(Icons.headset, 15 * globals.ratio, "Listening"),
+            buildBottomNavigationItem(Icons.import_contacts, 15 * globals.ratio, "Reading"),
+            buildBottomNavigationItem(Icons.book, 15 * globals.ratio, "Book"),
+            buildBottomNavigationItem(Icons.account_circle, 15 * globals.ratio, "Account"),
 
           ],
           onTap: (index) {

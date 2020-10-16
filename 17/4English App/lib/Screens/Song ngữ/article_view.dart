@@ -14,6 +14,7 @@ class ArticleView extends StatefulWidget {
 
 class _ArticleViewState extends State<ArticleView> {
   bool showWordBank= false;
+  FocusNode _focus = new FocusNode();
 
   _settingModalBottomSheet(context, String translate){
     showModalBottomSheet(
@@ -68,8 +69,8 @@ class _ArticleViewState extends State<ArticleView> {
   }
 
   _richText(var richText) {
-    return RichText(
-      text: TextSpan(
+    return SelectableText.rich(
+      TextSpan(
           style: TextStyle(
             color: Colors.black,
             fontSize: 17,
@@ -95,6 +96,7 @@ class _ArticleViewState extends State<ArticleView> {
             }
           })
       ),
+      focusNode: _focus,
     );
   }
 
@@ -242,19 +244,24 @@ class _ArticleViewState extends State<ArticleView> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          backgroundColor: Colors.white,
         ),
-        backgroundColor: Colors.white,
-      ),
 
-      body: Container(
-        padding: EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: showWordBank == false ?_ClosedWordBank() :
-              _OpenedWordBank()
+        body: Container(
+          padding: EdgeInsets.all(16),
+          child: SingleChildScrollView(
+            child: showWordBank == false ?_ClosedWordBank() :
+                _OpenedWordBank()
+          ),
         ),
       ),
     );

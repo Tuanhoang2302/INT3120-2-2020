@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:english_app/Screens/Vocabulary/pdfView.dart';
 import 'package:english_app/Services/database.dart';
+import 'package:english_app/globles.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -107,8 +108,6 @@ class _BookViewState extends State<BookView> {
 
   _buttonDownload() {
     return Container(
-      width: 130,
-      height: 50,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           color: colors
@@ -116,7 +115,7 @@ class _BookViewState extends State<BookView> {
       child: FlatButton(
         child: Text("Download", style: TextStyle(
             color: Colors.white,
-            fontSize: 17
+            fontSize: 17 * ratio
         ),),
         onPressed: () {
           print("download");
@@ -130,50 +129,52 @@ class _BookViewState extends State<BookView> {
   _buttonReadAndDelete() {
     return Row(
       children: <Widget>[
-        Container(
-          width: 130,
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: colors
-          ),
-          child: FlatButton(
-            child: Text("Read", style: TextStyle(
-                color: Colors.white,
-                fontSize: 17
-            ),),
-            onPressed: () {
-              if(doc != null){
-                print("read");
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => PDFView(book: doc,)
-                ));
-              }
-            },
+        Expanded(
+          flex: 1,
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: colors
+            ),
+            child: FlatButton(
+              child: Text("Read", style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17 * ratio
+              ),),
+              onPressed: () {
+                if(doc != null){
+                  print("read");
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => PDFView(book: doc,)
+                  ));
+                }
+              },
+            ),
           ),
         ),
-        SizedBox(width: 20,),
-        Container(
-          width: 60,
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.deepOrange
-          ),
-          child: FlatButton(
-            child: Icon(Icons.delete, color: Colors.white,),
-            onPressed: ()async {
-              try {
-                File file = File('${dir.path}/${widget.title}.pdf');
-                if (await file.exists()) {
-                  await file.delete();
-                  _setStateUnDownload();
-                  DatabaseService("books").updateDownloadedStatus_Book(widget.id, false);
+        SizedBox(width: 20 * ratio,),
+        Expanded(
+          flex: 1,
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.deepOrange
+            ),
+            child: FlatButton(
+              child: Icon(Icons.delete, color: Colors.white, size: iconSize,),
+              onPressed: ()async {
+                try {
+                  File file = File('${dir.path}/${widget.title}.pdf');
+                  if (await file.exists()) {
+                    await file.delete();
+                    _setStateUnDownload();
+                    DatabaseService("books").updateDownloadedStatus_Book(widget.id, false);
+                  }
+                } catch (e) {
+                  print(e);
                 }
-              } catch (e) {
-                print(e);
-              }
-            },
+              },
+            ),
           ),
         )
       ],
@@ -182,31 +183,38 @@ class _BookViewState extends State<BookView> {
 
   _overview() {
     return Container(
-      height: 180,
+      height: 180 * ratio,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: CachedNetworkImage(imageUrl: widget.imageUrl, height: 180, width: 150,),
+          SizedBox(width: 5,),
+          Expanded(
+            flex: 5,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(imageUrl: widget.imageUrl, fit: BoxFit.fill,),
+            ),
           ),
-          SizedBox(width: 16,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(widget.title, style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20
-              ),),
-              SizedBox(height: 15,),
-              Text('Category: ${widget.category}', style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500
-              ),),
-              Spacer(),
-              downloading == false ?
-                _buttonDownload() : _buttonReadAndDelete()
-            ],
+          SizedBox(width: 16 * ratio,),
+          Expanded(
+            flex: 7,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(widget.title, style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20 * ratio
+                ),),
+                SizedBox(height: 15 * ratio,),
+                Text('Category: ${widget.category}', style: TextStyle(
+                  fontSize: 16 * ratio,
+                  fontWeight: FontWeight.w500
+                ),),
+                Spacer(),
+                downloading == false ?
+                  _buttonDownload() : _buttonReadAndDelete()
+              ],
+            ),
           )
         ],
       ),
@@ -220,12 +228,12 @@ class _BookViewState extends State<BookView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Description', style: TextStyle(
-            fontSize: 24,
+            fontSize: 24* ratio,
             fontWeight: FontWeight.bold
           ),),
           SizedBox(height: 12,),
           Text(widget.description, style: TextStyle(
-            fontSize: 16,
+            fontSize: 16 * ratio,
             color: Colors.grey
           ),),
         ],
@@ -267,7 +275,7 @@ class _BookViewState extends State<BookView> {
 
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.only(top: 16, left: 10),
+          margin: EdgeInsets.only(top: 16, left: 10, right: 10),
           child: Column(
             children: <Widget>[
               _overview(),

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:english_app/Screens/WordView/Word_view.dart';
 import 'package:english_app/Services/database.dart';
+import 'package:english_app/globles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class SuggestionPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     //print(data);
     return Container(
-      height: 180,
+      height: 180 * ratio,
       margin: EdgeInsets.only(left: 16, right: 16),
       decoration: BoxDecoration(
           boxShadow: [
@@ -29,7 +30,7 @@ class SuggestionPanel extends StatelessWidget {
             itemCount: data.length,//data.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
-                padding: const EdgeInsets.only(top: 19, left: 25),
+                padding: EdgeInsets.only(top: 19* ratio, left: 25 * ratio),
                 child: ListBody(
                   children: <Widget>[
                     GestureDetector(
@@ -44,7 +45,7 @@ class SuggestionPanel extends StatelessWidget {
                       child: Text(
                         data[index]["word"],
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16 * ratio,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

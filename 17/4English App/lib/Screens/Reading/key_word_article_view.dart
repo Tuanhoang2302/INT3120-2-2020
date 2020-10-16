@@ -91,6 +91,7 @@ class _KeyWordArticleViewState extends State<KeyWordArticleView> {
                                   title: articles[index].title,
                                   desc: articles[index].description,
                                   url: articles[index].url,
+                                  sourceName: articles[index].sourceName,
                                 ),
                               );
                               //return Text("Hello");

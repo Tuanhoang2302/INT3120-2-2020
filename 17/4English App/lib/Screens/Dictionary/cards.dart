@@ -1,3 +1,4 @@
+import 'package:english_app/globles.dart';
 import 'package:flutter/material.dart';
 
 class Cards extends StatelessWidget {
@@ -12,16 +13,16 @@ class Cards extends StatelessWidget {
       margin: EdgeInsets.only(top: 16),
       shadowColor: Colors.black,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(padding),
         child: Row(
           children: [
-            Icon(icons),
+            Icon(icons, size: 24 * ratio ,),
             Padding(
-              padding: const EdgeInsets.only(left: 25),
+              padding: const EdgeInsets.only(left: 25 ),
               child: Text(text,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 20 * ratio,
                 ),
               ),
             ),

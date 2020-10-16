@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:english_app/Screens/Vocabulary/book_tile.dart';
 import 'package:english_app/Screens/Vocabulary/pdfView.dart';
+import 'package:english_app/globles.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,85 +23,78 @@ class _VocabularyState extends State<Vocabulary> {
   CollectionReference books =
   FirebaseFirestore.instance.collection('books');
 
-  test() {
-    /*final StorageReference storageReference =
-    FirebaseStorage().ref().child("books/Pinocchio.pdf");
-    await storageReference.getDownloadURL().then((value) async {
-      //print(value);
-      Dio dio = Dio();
-      try{
-        var dir = await getApplicationDocumentsDirectory();
-        await dio.download(value, "${dir.path}/Pinocchio.pdf").then((value) => print("success"));
-
-        File file = File('${dir.path}/Pinocchio.pdf');
-        doc = await PDFDocument.fromFile(file);
-      } catch (e) {
-        print(e);
-      }
-    });
-
-    if(doc != null){
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => PDFView(book: doc,)
-                  ));
-                }*/
-  }
 
   _booksCategory(List<QueryDocumentSnapshot> data, String category, int downloadedIndex) {
-    return Container(
-      height: 290,
-      margin: EdgeInsets.only(top: 16, right: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(left: 16),
-            child: Text(category, style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w500
-            ),),
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 290 * ratio,
+          margin: EdgeInsets.only(top: 16, right: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Container(
+                  margin: EdgeInsets.only(left: 16),
+                  child: Text(category, style: TextStyle(
+                    fontSize: 24 * ratio,
+                    fontWeight: FontWeight.w500
+                  ),),
+                ),
+              ),
 
-          Expanded(
-            child: ListView.builder(
-              itemCount: data.length + downloadedIndex,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                if(downloadedIndex == 0) {
-                  return BookTile(data: data[index],);
-                } else {
-                  if(index == 0) {
-                    return Column(
-                      children: [
-                        Container(
-                          width: 135,
+              Expanded(
+                flex: 9,
+                child: ListView.builder(
+                  itemCount: data.length + downloadedIndex,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    if(downloadedIndex == 0) {
+                      return BookTile(data: data[index],);
+                    } else {
+                      if(index == 0) {
+                        return Container(
                           margin: EdgeInsets.only(top: 12, left: 16),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: <Widget>[
-                              Image.asset('assets/images/Untitled.png'),
-                              Icon(Icons.add,size: 40,color: Colors.blue,)
-                            ],/*Image.asset('assets/images/Untitled.png')*/
-                          )
-                        ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: <Widget>[
+                                    Image.asset('assets/images/Untitled.png', fit: BoxFit.cover,),
+                                    Icon(Icons.add,size: 40,color: Colors.blue,)
+                                  ],/*Image.asset('assets/images/Untitled.png')*/
+                                ),
+                              ),
 
-                        SizedBox(height: 12,),
-                        Text("Read your books", style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16
-                        ),)
-                      ],
-                    );
-                  } else {
-                    return BookTile(data: data[index - downloadedIndex],);
+                              SizedBox(height: 12,),
+                              Expanded(
+                                flex: 1,
+                                child: Text("Read your books", style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16 * ratio
+                                ),),
+                              )
+                            ],
+                          ),
+                        );
+                      } else {
+                        return BookTile(data: data[index - downloadedIndex],);
+                      }
+                    }
                   }
-                }
-              }
-            ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        Container(color: Colors.grey[200], height: 3,),
+      ],
     );
   }
 

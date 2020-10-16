@@ -10,7 +10,8 @@ class ArticleModel {
   String urlToImage;
   String content;
   String publishedAt;
-  ArticleModel({this.author, this.url, this.title, this.content, this.description, this.urlToImage, this.publishedAt});
+  String sourceName;
+  ArticleModel({this.author, this.url, this.title, this.content, this.description, this.urlToImage, this.publishedAt, this.sourceName});
 }
 
 class News {
@@ -39,6 +40,7 @@ class News {
                 description: element["description"],
                 urlToImage: element["urlToImage"],
                 publishedAt: element["publishedAt"],
+                sourceName: element["source"]["name"]
               );
               news.add(articleModel);
             }
@@ -69,6 +71,7 @@ class News {
             description: element["description"],
             urlToImage: element["urlToImage"],
             publishedAt: element["publishedAt"],
+            sourceName: element["source"]["name"]
           );
           relevantNews.add(articleModel);
         }

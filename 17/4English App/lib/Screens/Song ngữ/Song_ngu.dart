@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:english_app/Screens/Song%20ng%E1%BB%AF/article_view.dart';
+import 'package:english_app/globles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,7 @@ class _SongNguState extends State<SongNgu> {
   _blogTile(int index, double marginLeft) {
     return Container(
       margin: EdgeInsets.only(left: marginLeft),
-      width: 150,
+      width: 150 ,
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(
@@ -56,22 +57,27 @@ class _SongNguState extends State<SongNgu> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: CachedNetworkImage(
-                imageUrl:englishArticles[index].data()["imageUrl"],
-                width: 150, height: 100, fit: BoxFit.cover,),
+            Expanded(
+              flex: 2,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: CachedNetworkImage(
+                  imageUrl:englishArticles[index].data()["imageUrl"],
+                  fit: BoxFit.cover,),
+              ),
             ),
-
-            Container(
-              margin: EdgeInsets.only(top: 12),
-              width: 150,
-              child: Text(
-                vietnameseArticles[index].data()["title"],
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500
+            Expanded(
+              flex: 1,
+              child: Container(
+                margin: EdgeInsets.only(top: 12),
+                child: Text(
+                  vietnameseArticles[index].data()["title"],
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14 * ratio
+                  ),
                 ),
               ),
             )
@@ -89,7 +95,7 @@ class _SongNguState extends State<SongNgu> {
         blogIndex.add(i);
       }
     }
-
+    //padding: EdgeInsets.all(16),
     return Container(
       padding: EdgeInsets.all(16),
       height: 215,
@@ -99,7 +105,7 @@ class _SongNguState extends State<SongNgu> {
           Container(
             margin: EdgeInsets.only(bottom: 12),
             child: Text(categoryName, style: TextStyle(
-              fontSize: 20,
+              fontSize: 20 * ratio,
               fontWeight: FontWeight.bold
             ),),
           ),
@@ -156,6 +162,7 @@ class _SongNguState extends State<SongNgu> {
                 _Category("Khám phá", "discovery"),
                 Container(color: Colors.grey[200], height: 10,),
                 _Category("Giải trí", "entertainment"),
+                Container(color: Colors.grey[200], height: 10,),
               ],
             ),
           );

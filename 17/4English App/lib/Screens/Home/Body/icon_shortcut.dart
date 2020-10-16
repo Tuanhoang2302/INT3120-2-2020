@@ -1,3 +1,4 @@
+import 'package:english_app/globles.dart';
 import 'package:flutter/material.dart';
 
 class IconShortcut extends StatelessWidget {
@@ -11,19 +12,24 @@ class IconShortcut extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
-          width: 45,
-          height: 45,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: color,
-            shape: BoxShape.rectangle,
-          ),
+        GestureDetector(
+          onTap: () {
 
-          child: IconButton(
-            icon: Icon(icon),
-            color: Colors.white,
-            onPressed: () {},
+          },
+          child: Container(
+            width: 45 * ratio,
+            height: 45 * ratio,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10 * ratio),
+              color: color,
+              shape: BoxShape.rectangle,
+            ),
+
+            child: Icon(
+              icon,
+              color: Colors.white,
+              size: 25 * ratio,
+            )
           ),
         ),
 
@@ -33,6 +39,7 @@ class IconShortcut extends StatelessWidget {
             text,
             style: TextStyle(
               fontWeight: FontWeight.bold,
+              fontSize: 16 * ratio
             ),
           ),
         )

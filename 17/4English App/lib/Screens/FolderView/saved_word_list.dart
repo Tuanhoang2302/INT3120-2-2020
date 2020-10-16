@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:english_app/Constant/delete_item_dialog.dart';
 import 'package:english_app/Screens/WordView/review_saved_word.dart';
 import 'package:english_app/Services/database.dart';
+import 'package:english_app/globles.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -38,7 +39,8 @@ class _SavedWordListState extends State<SavedWordList> {
 
   _searchBar() {
     return Container(
-      height: 50,
+      alignment: Alignment.center,
+      height: 50 * ratio,
       margin: EdgeInsets.only(bottom: 8, top: 16),
       decoration: BoxDecoration(
           color: Colors.grey[200],
@@ -47,20 +49,23 @@ class _SavedWordListState extends State<SavedWordList> {
             width: 3,
             color: Colors.blue,
           )),
-      child: TextFormField(
-        onChanged: (text) async {
-          _streamController.add(text);
-        },
-        controller: _controller,
-        textInputAction: TextInputAction.done,
-        onFieldSubmitted: (value) {},
-        style: TextStyle(
-          fontSize: 18,
-        ),
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(bottom: 4, left: 14),
-          hintText: "Search",
-          border: InputBorder.none,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: TextFormField(
+          onChanged: (text) async {
+            _streamController.add(text);
+          },
+          controller: _controller,
+          textInputAction: TextInputAction.done,
+          onFieldSubmitted: (value) {},
+          style: TextStyle(
+            fontSize: 18 * ratio,
+          ),
+          decoration: InputDecoration.collapsed(
+            //contentPadding: EdgeInsets.only(left: padding),
+            hintText: "Search",
+            border: InputBorder.none,
+          ),
         ),
       ),
     );
@@ -78,22 +83,22 @@ class _SavedWordListState extends State<SavedWordList> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.only(left: 16, top: 8 * ratioHeight, bottom: 8* ratioHeight, right: 8),
                 child: Row(
                   children: <Widget>[
                     Text(
                       data[index].data()["word"],
-                      style: TextStyle(fontSize: 17),
+                      style: TextStyle(fontSize: 17 * ratio),
                     ),
                     Spacer(),
                     IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: Icon(Icons.delete, size: iconSize,),
                       onPressed: () {
                         createAlertDialog(context, data[index].id.toString());
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.edit),
+                      icon: Icon(Icons.edit, size: iconSize,),
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -134,7 +139,9 @@ class _SavedWordListState extends State<SavedWordList> {
         centerTitle: true,
         title: Text(
           widget.folder,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+              color: Colors.black,
+              fontSize: 20 * ratio),
         ),
       ),
       body: Column(

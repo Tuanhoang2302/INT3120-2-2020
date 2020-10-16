@@ -6,6 +6,7 @@ import 'package:english_app/Screens/Reading/article_view.dart';
 import 'package:english_app/Screens/Reading/blogTile.dart';
 import 'package:english_app/Screens/Reading/categoryTile.dart';
 import 'package:english_app/Screens/Reading/key_word_article_view.dart';
+import 'package:english_app/globles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -68,7 +69,8 @@ class _ReadingState extends State<Reading> {
 
   _searchBar() {
     return Container(
-      height: 50,
+      height: 50* ratio,
+      padding: EdgeInsets.symmetric(horizontal: 16),
       margin: EdgeInsets.only(bottom: 8, top: 8),
       decoration: BoxDecoration(
           color: Colors.grey[200],
@@ -77,25 +79,26 @@ class _ReadingState extends State<Reading> {
             width: 3,
             color: Colors.blue,
           )),
-      child: TextFormField(
-        textInputAction: TextInputAction.done,
-        onFieldSubmitted: (value) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => KeyWordArticleView(
-                        keyWord: value,
-                      )));
-          _controller.text = "";
-        },
-        controller: _controller,
-        style: TextStyle(
-          fontSize: 18,
-        ),
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(bottom: 4, left: 14),
-          hintText: "Search a topic",
-          border: InputBorder.none,
+      child: Center(
+        child: TextFormField(
+          textInputAction: TextInputAction.done,
+          onFieldSubmitted: (value) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => KeyWordArticleView(
+                          keyWord: value,
+                        )));
+            _controller.text = "";
+          },
+          controller: _controller,
+          style: TextStyle(
+            fontSize: 18 * ratio,
+          ),
+          decoration: InputDecoration.collapsed(
+            hintText: "Search a topic",
+            border: InputBorder.none,
+          ),
         ),
       ),
     );
@@ -103,8 +106,8 @@ class _ReadingState extends State<Reading> {
 
   _categoryList(var data) {
     return Container(
-      height: 70,
-      margin: EdgeInsets.only(top: 8),
+      height: 70 * ratio,
+      margin: EdgeInsets.only(top: 8, bottom: 8),
       child: ListView.builder(
           itemCount: data.length,
           scrollDirection: Axis.horizontal,
@@ -182,6 +185,7 @@ class _ReadingState extends State<Reading> {
                   title: articles[index].title,
                   desc: articles[index].description,
                   url: articles[index].url,
+                  sourceName: articles[index].sourceName,
                 ),
               );
               //return Text("Hello");
