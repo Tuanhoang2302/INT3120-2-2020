@@ -62,7 +62,6 @@ class _SavedWordListState extends State<SavedWordList> {
             fontSize: 18 * ratio,
           ),
           decoration: InputDecoration.collapsed(
-            //contentPadding: EdgeInsets.only(left: padding),
             hintText: "Search",
             border: InputBorder.none,
           ),
@@ -83,7 +82,11 @@ class _SavedWordListState extends State<SavedWordList> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Padding(
-                padding: EdgeInsets.only(left: 16, top: 8 * ratioHeight, bottom: 8* ratioHeight, right: 8),
+                padding: EdgeInsets.only(
+                    left: 16,
+                    top: 8 * ratioHeight,
+                    bottom: 8 * ratioHeight,
+                    right: 8),
                 child: Row(
                   children: <Widget>[
                     Text(
@@ -92,21 +95,29 @@ class _SavedWordListState extends State<SavedWordList> {
                     ),
                     Spacer(),
                     IconButton(
-                      icon: Icon(Icons.delete, size: iconSize,),
+                      icon: Icon(
+                        Icons.delete,
+                        size: iconSize,
+                      ),
                       onPressed: () {
                         createAlertDialog(context, data[index].id.toString());
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.edit, size: iconSize,),
+                      icon: Icon(
+                        Icons.edit,
+                        size: iconSize,
+                      ),
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ReviewSavedWord(
-                                      word: data[index].data()["word"],
-                                      id: data[index].id,
-                                    )));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ReviewSavedWord(
+                              word: data[index].data()["word"],
+                              id: data[index].id,
+                            )
+                          )
+                        );
                       },
                     )
                   ],
@@ -119,7 +130,6 @@ class _SavedWordListState extends State<SavedWordList> {
     );
   }
 
-
   @override
   initState() {
     super.initState();
@@ -129,7 +139,6 @@ class _SavedWordListState extends State<SavedWordList> {
   }
 
   Widget build(BuildContext context) {
-    //print(savedWordList.length);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -139,9 +148,7 @@ class _SavedWordListState extends State<SavedWordList> {
         centerTitle: true,
         title: Text(
           widget.folder,
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: 20 * ratio),
+          style: TextStyle(color: Colors.black, fontSize: 20 * ratio),
         ),
       ),
       body: Column(
@@ -184,7 +191,7 @@ class _SavedWordListState extends State<SavedWordList> {
                       return Container(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
-                          children: [ _wordList(filterData)],
+                          children: [_wordList(filterData)],
                         ),
                       );
                     });
